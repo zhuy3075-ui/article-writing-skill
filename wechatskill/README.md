@@ -4,7 +4,7 @@
 
 适合持续运营公众号的个人创作者、内容编辑与小型团队。你提供主题、观点或素材，AI 按既定流程协助完成文章，并将可复用经验保存在本地文件中。
 
-**正式分发版本：v1.0.0** · [版本下载](https://github.com/zhuy3075-ui/article-writing-skill/releases/tag/v1.0.0) · [使用指南](wechatskill/docs/USER_GUIDE.md) · [工作流说明](wechatskill/WORKFLOW.md)
+**正式分发版本：v1.0.0** · [版本下载](https://github.com/zhuy3075-ui/article-writing-skill/releases/tag/v1.0.0) · [使用指南](docs/USER_GUIDE.md) · [工作流说明](WORKFLOW.md)
 
 ## 解决哪些问题
 
@@ -52,9 +52,9 @@ git clone --branch v1.0.0 --depth 1 https://github.com/zhuy3075-ui/article-writi
 
 ### 2. 安装或加载 Skill
 
-将仓库内完整的 `wechatskill/` 目录复制到所使用 Agent 的技能目录，保留内部目录结构。让 Agent 读取其中的 [SKILL.md](wechatskill/SKILL.md)，并按该流程处理写作请求。具体的目录位置与加载方式以所用客户端为准。
+将仓库内完整的 `wechatskill/` 目录复制到所使用 Agent 的技能目录，保留内部目录结构。让 Agent 读取其中的 [SKILL.md](SKILL.md)，并按该流程处理写作请求。具体的目录位置与加载方式以所用客户端为准。
 
-不支持技能目录的工具，可读取 [独立提示词](wechatskill/prompts/prompt.md)，并提供需要的风格、模板和素材；本地脚本与记忆回写仍需要文件访问能力。
+不支持技能目录的工具，可读取 [独立提示词](prompts/prompt.md)，并提供需要的风格、模板和素材；本地脚本与记忆回写仍需要文件访问能力。
 
 ### 3. 给出第一条写作请求
 
@@ -96,7 +96,7 @@ python scripts/article_output_formatter.py --input examples/干货型示例.md -
 python -m pip install requests PyYAML Pillow mistune premailer aiohttp
 ```
 
-复制 `config/image-gen.local.yaml.example` 为 `config/image-gen.local.yaml`，或复制 `config/wechat.local.yaml.example` 为 `config/wechat.local.yaml`，再在本地填写凭证。配置说明见 [config/README.md](wechatskill/config/README.md)。
+复制 `config/image-gen.local.yaml.example` 为 `config/image-gen.local.yaml`，或复制 `config/wechat.local.yaml.example` 为 `config/wechat.local.yaml`，再在本地填写凭证。配置说明见 [config/README.md](config/README.md)。
 
 ```bash
 python scripts/publish_wechat.py --help
@@ -138,15 +138,15 @@ article-writing-skill/
 
 ## 版本与许可
 
-`v1.0.0` 为本仓库首次正式分发版本，版本号表示发布快照，不表示每个既有模块的内部版本。[CHANGELOG.md](CHANGELOG.md) 记录分发变化，后续正式版本以 GitHub Release 为准。
+`v1.0.0` 为本仓库首次正式分发版本，版本号表示发布快照，不表示每个既有模块的内部版本。GitHub Release 中的版本记录 记录分发变化，后续正式版本以 GitHub Release 为准。
 
 原始目录及其所属聚合仓库未声明统一开源许可证，本次公开发布不额外授予商业使用或再分发权利。风格参考与素材保留原有来源标记，引用内容仍应尊重原作者的权利。
 
 ## 文档导航
 
-- [Skill 主入口](wechatskill/SKILL.md)
-- [用户操作指南](wechatskill/docs/USER_GUIDE.md)
-- [完整工作流程](wechatskill/WORKFLOW.md)
-- [开发者说明](wechatskill/docs/README.dev.md)
-- [示例文章](wechatskill/examples/干货型示例.md)
-- [配置说明](wechatskill/config/README.md)
+- [Skill 主入口](SKILL.md)
+- [用户操作指南](docs/USER_GUIDE.md)
+- [完整工作流程](WORKFLOW.md)
+- [开发者说明](docs/README.dev.md)
+- [示例文章](examples/干货型示例.md)
+- [配置说明](config/README.md)
