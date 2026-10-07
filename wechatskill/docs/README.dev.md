@@ -18,7 +18,7 @@
 - `rules/style-guide.md`：风格/用词/标点规范
 - `rules/risk-check.md`：发布前合规标准
 - `core/self-evolution.md`：进化、防污染、锁定策略
-- `templates/`：五类文章结构模板
+- `templates/`：9 类文章结构模板（干货、观点、故事、清单、热点、产品体验、工具分享、现象解读、调查实验）
 - `styles/`：学习生成的作者风格
 - `memory/`：素材、标题、金句、表现数据、对标账号、排期
 

@@ -4,7 +4,7 @@
 
 适合持续运营公众号的个人创作者、内容编辑与小型团队。你提供主题、观点或素材，AI 按既定流程协助完成文章，并将可复用经验保存在本地文件中。
 
-**正式分发版本：v1.0.1** · [版本下载](https://github.com/zhuy3075-ui/article-writing-skill/releases/tag/v1.0.1) · [使用指南](docs/USER_GUIDE.md) · [工作流说明](WORKFLOW.md)
+**正式分发版本：v1.0.2** · [版本下载](https://github.com/zhuy3075-ui/article-writing-skill/releases/tag/v1.0.2) · [使用指南](docs/USER_GUIDE.md) · [工作流说明](WORKFLOW.md)
 
 ## 解决哪些问题
 
@@ -68,10 +68,10 @@ flowchart LR
 
 ### 1. 获取正式版本
 
-从 [GitHub Releases](https://github.com/zhuy3075-ui/article-writing-skill/releases) 下载 `v1.0.1` 的 Source code，或运行：
+从 [GitHub Releases](https://github.com/zhuy3075-ui/article-writing-skill/releases) 下载 `v1.0.2` 的 Source code，或运行：
 
 ```bash
-git clone --branch v1.0.1 --depth 1 https://github.com/zhuy3075-ui/article-writing-skill.git
+git clone --branch v1.0.2 --depth 1 https://github.com/zhuy3075-ui/article-writing-skill.git
 ```
 
 ### 2. 安装或加载 Skill
@@ -110,7 +110,7 @@ python scripts/originality_quality_gate.py --article examples/干货型示例.md
 python scripts/article_output_formatter.py --input examples/干货型示例.md --output outputs/demo --mode both
 ```
 
-质量闸门默认阈值为：原创度 ≥ 70、AI 味 ≤ 30、人味 ≥ 60。评分基于当前文件和规则特征，不是全网查重、可靠的 AI 检测、事实核查或平台审核结果。脚本会输出 `passed: True/False`；当前实现不通过退出码区分评分通过与否，调用方需读取该字段。
+质量闸门默认阈值为：原创度 ≥ 70、AI 味 ≤ 30、人味 ≥ 60。评分基于当前文件和规则特征；明确提供的来源文件必须存在且非空，未提供来源会输出 `source_comparison: not_evaluated`，此时原创度分数不能证明来源重合情况。正常引用的“来源：”标注会保留。评分不是全网查重、可靠的 AI 检测、事实核查或平台审核结果。脚本会输出 `passed: True/False`；当前实现不通过退出码区分评分通过与否，调用方需读取该字段。
 
 ### 可选：配图与微信草稿箱
 
@@ -176,7 +176,7 @@ article-writing-skill/
 
 首次使用时检查已有 `memory/`、`styles/` 和 `core/personality.md`：仓库包含预置参考内容与学习记录，并非空白的个人记忆库。数据和案例需要在实际写作前重新核实。
 
-升级前备份自己的记忆、风格档案和本地配置。`scripts/sync-to-local.sh` 可在 Bash 环境中增量同步，并保护 `memory/`、`styles/` 与 `learning/samples/`；它不保护 `core/personality.md`。Windows 用户需使用 Git Bash、WSL 等 Bash 环境，或手动合并文件。
+升级前备份自己的记忆、风格档案和本地配置。`scripts/sync-to-local.sh` 可在 Bash 环境中增量同步，并保护 `memory/`、`styles/`、`learning/samples/`、本地 API 配置（含兼容旧版的 `config/wechat.yaml`、`config/image-gen.yaml`）、凭证缓存与 `core/personality.md`；目标目录中的额外文件不会自动删除。Windows 用户需使用 Git Bash、WSL 等 Bash 环境，或手动合并文件。
 
 真实 API 密钥应仅存于被忽略的 `config/*.local.yaml` 中。个人文章、反馈与范文原文属于使用者自己的数据；共享仓库前需检查这些内容。风险检查提供编辑线索，最终内容由发布者审核。
 

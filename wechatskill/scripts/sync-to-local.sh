@@ -18,6 +18,7 @@
 # ============================================================
 
 # ---- 颜色 ----
+set -euo pipefail
 GREEN='\033[0;32m'; YELLOW='\033[1;33m'; CYAN='\033[0;36m'; RED='\033[0;31m'; NC='\033[0m'
 log_info()  { echo -e "${CYAN}[INFO]${NC} $1"; }
 log_ok()    { echo -e "${GREEN}[OK]${NC} $1"; }
@@ -32,7 +33,7 @@ TARGET_DIR="${1:-$HOME/.claude/skills/wechat-writer}"
 # ---- 受保护目录 ----
 is_protected() {
     case "$1" in
-        memory/*|memory|styles/*|styles|learning/samples/*|learning/samples) return 0 ;;
+        memory/*|memory|styles/*|styles|learning/samples/*|learning/samples|config/*.local.yaml|config/wechat.yaml|config/image-gen.yaml|config/.wechat_token_cache.json|core/personality.md) return 0 ;;
         *) return 1 ;;
     esac
 }
@@ -102,7 +103,9 @@ while IFS= read -r src_file; do
     mkdir -p "$(dirname "$target_file")"
 
     if [ -f "$target_file" ]; then
-        if [ "$(file_hash "$src_file")" = "$(file_hash "$target_file")" ]; then
+        source_hash=$(file_hash "$src_file")
+        target_hash=$(file_hash "$target_file")
+        if [ "$source_hash" = "$target_hash" ]; then
             SKIPPED_SAME=$((SKIPPED_SAME + 1))
             continue
         fi
@@ -113,22 +116,7 @@ while IFS= read -r src_file; do
     COPIED=$((COPIED + 1))
 done < "$TMPLIST"
 
-# ---- 清理：目标中源已删除的文件 ----
-DELETED=0
-if [ "$FIRST_INSTALL" = "false" ] && [ -d "$TARGET_DIR" ]; then
-    find "$TARGET_DIR" -type f > "$TMPLIST"
-    while IFS= read -r tgt_file; do
-        rel_path="${tgt_file#$TARGET_DIR/}"
-        is_skipped "$rel_path" && continue
-        is_protected "$rel_path" && continue
-
-        if [ ! -f "$SOURCE_DIR/$rel_path" ]; then
-            rm "$tgt_file"
-            log_warn "已删除: $rel_path"
-            DELETED=$((DELETED + 1))
-        fi
-    done < "$TMPLIST"
-fi
+# 保留目标中的额外文件；没有旧版本文件清单，无法确认其归属。
 
 rm -f "$TMPLIST"
 
@@ -148,8 +136,10 @@ echo ""
 [ "$FIRST_INSTALL" = "true" ] && log_info "模式：首次全量安装" || log_info "模式：增量更新"
 log_info "已更新：$COPIED 个文件"
 log_info "未修改跳过：$SKIPPED_SAME"
-[ "$FIRST_INSTALL" = "false" ] && log_info "受保护跳过：$SKIPPED_PROT（memory/ styles/ learning/samples/）"
-[ "$FIRST_INSTALL" = "false" ] && log_info "已清理：$DELETED"
+if [ "$FIRST_INSTALL" = "false" ]; then
+    log_info "受保护跳过：$SKIPPED_PROT（记忆、风格、范文、本地配置、人格）"
+    log_info "目标目录额外文件已保留"
+fi
 echo ""
 [ "$COPIED" -eq 0 ] && log_ok "所有文件已是最新" || log_ok "同步完成！共更新 $COPIED 个文件"
 echo ""

@@ -21,7 +21,6 @@ SOURCE_TRACE_PATTERNS = [
     r"引用原文",
     r"原文如下",
     r"据原文",
-    r"来源[:：]",
     r"摘录如下",
 ]
 
@@ -497,8 +496,14 @@ def main() -> None:
     parser.add_argument("--strict-source-trace", action="store_true", help="Set originality=0 if source-trace phrase appears")
     args = parser.parse_args()
 
-    article = read_text(args.article)
-    sources = [read_text(p) for p in args.sources if p.exists()]
+    try:
+        article = read_text(args.article)
+        sources = [read_text(p) for p in args.sources]
+        for path, text in zip(args.sources, sources):
+            if not text.strip():
+                parser.error(f"Source file is empty: {path}")
+    except (OSError, UnicodeError) as error:
+        parser.error(f"Cannot read input file: {error}")
     metrics = evaluate(
         article,
         sources,
@@ -509,6 +514,9 @@ def main() -> None:
     )
 
     print("=== Originality Quality Gate ===")
+    print(f"source_comparison: {'provided' if sources else 'not_evaluated'}")
+    if not sources:
+        print("warning: No source files provided; originality_score does not verify source overlap.")
     print(f"originality_score: {metrics.originality_score}")
     print(f"ai_tone_score: {metrics.ai_tone_score}")
     print(f"humanity_score: {metrics.humanity_score}")
