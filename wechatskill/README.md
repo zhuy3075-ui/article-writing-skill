@@ -4,7 +4,7 @@
 
 适合持续运营公众号的个人创作者、内容编辑与小型团队。你提供主题、观点或素材，AI 按既定流程协助完成文章，并将可复用经验保存在本地文件中。
 
-**正式分发版本：v1.0.0** · [版本下载](https://github.com/zhuy3075-ui/article-writing-skill/releases/tag/v1.0.0) · [使用指南](docs/USER_GUIDE.md) · [工作流说明](WORKFLOW.md)
+**正式分发版本：v1.0.1** · [版本下载](https://github.com/zhuy3075-ui/article-writing-skill/releases/tag/v1.0.1) · [使用指南](docs/USER_GUIDE.md) · [工作流说明](WORKFLOW.md)
 
 ## 解决哪些问题
 
@@ -68,10 +68,10 @@ flowchart LR
 
 ### 1. 获取正式版本
 
-从 [GitHub Releases](https://github.com/zhuy3075-ui/article-writing-skill/releases) 下载 `v1.0.0` 的 Source code，或运行：
+从 [GitHub Releases](https://github.com/zhuy3075-ui/article-writing-skill/releases) 下载 `v1.0.1` 的 Source code，或运行：
 
 ```bash
-git clone --branch v1.0.0 --depth 1 https://github.com/zhuy3075-ui/article-writing-skill.git
+git clone --branch v1.0.1 --depth 1 https://github.com/zhuy3075-ui/article-writing-skill.git
 ```
 
 ### 2. 安装或加载 Skill
@@ -136,6 +136,7 @@ python scripts/publish_wechat.py --validate
 article-writing-skill/
 ├── README.md                 # 对外说明与快速开始
 ├── CHANGELOG.md              # 正式版本记录
+├── LICENSE                   # MIT 许可证
 ├── VERSION                   # 分发版本号
 └── wechatskill/
     ├── SKILL.md              # 主入口与工作流程
@@ -164,7 +165,9 @@ article-writing-skill/
 
 `v1.0.0` 为本仓库首次正式分发版本，版本号表示发布快照，不表示每个既有模块的内部版本。GitHub Release 中的版本记录 记录分发变化，后续正式版本以 GitHub Release 为准。
 
-原始目录及其所属聚合仓库未声明统一开源许可证，本次公开发布不额外授予商业使用或再分发权利。风格参考与素材保留原有来源标记，引用内容仍应尊重原作者的权利。
+本项目自 `v1.0.1` 起采用 [MIT License](LICENSE)。允许使用、修改、商业使用和再分发，须保留版权声明与许可文本；软件按原样提供。版权声明：Copyright (c) 2026 zhuy3075-ui。
+
+风格参考与素材保留原有来源标记；第三方引用内容的权利归原权利人，本许可证不改变其原有授权。
 
 ## 文档导航
 
